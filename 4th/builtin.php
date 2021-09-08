@@ -68,7 +68,6 @@ $users = array(
        'gender' => 'f'
    )
 );
-1 > 2;
 $email = 'galal@gmail.com';
 $password = 123456;
 
