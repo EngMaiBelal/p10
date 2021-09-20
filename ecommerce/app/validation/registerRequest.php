@@ -98,8 +98,10 @@ class registerRequest {
         if($this->password != $this->confirm_password ){
             $errors['confrim-password-invalid'] = 'Password dosen\'t match';
         }else{
-            if(!preg_match($pattern,$this->password)){
-                $errors['password-invalid'] = 'Minimum eight and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character';
+            if(empty($errors)) {
+                if(!preg_match($pattern,$this->password)){
+                    $errors['password-invalid'] = 'Minimum eight and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character';
+                }
             }
         }
         return $errors;

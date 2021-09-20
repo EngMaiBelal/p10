@@ -218,7 +218,7 @@
 <body>
     <div class="error">403</div>
     <br /><br />
-    <span class="info">File not found</span>
+    <span class="info">Mehod not Allowed</span>
     <img src="http://images2.layoutsparks.com/1/160030/too-much-tv-static.gif" class="static" />
 </body>
 

@@ -152,7 +152,7 @@ class User extends databaseConnection implements operation {
      */ 
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = sha1( $password );
 
         return $this;
     }
@@ -299,7 +299,15 @@ class User extends databaseConnection implements operation {
 
 
     public function create(){
-
+        $query = "INSERT INTO `users` 
+        (`users`.`first_name`,`users`.`last_name`,
+        `users`.`email`,`users`.`phone`,`users`.`password`,
+        `users`.`gender`,`users`.`birthdate`,`users`.`code`) 
+        VALUES 
+        ('$this->first_name','$this->last_name',
+        '$this->email','$this->phone','$this->password',
+        '$this->gender','$this->birthdate','$this->code')";
+        return $this->runDML($query);
     }
     public function delete(){
 
@@ -316,6 +324,33 @@ class User extends databaseConnection implements operation {
     {
         $query = "SELECT `users`.* FROM `users` WHERE `users`.`email` = '$this->email'";
         return $this->runDQL($query);
+
+    }
+
+    public function checkCodeByEmail()
+    {
+       $query = "SELECT `users`.* FROM `users` WHERE `users`.`email` = '$this->email' AND `users`.`code` = $this->code";
+       return $this->runDQL($query);
+
+    }
+
+    public function emailVerificaiton()
+    {
+        $query = "UPDATE `users` SET `users`.`email_verified_at` = '".date('Y-m-d H:i:s')."' WHERE `users`.`email` = '$this->email'";
+        // echo $query;die;
+        return $this->runDML($query);
+
+    }
+
+    public function login()
+    {
+       return $this->runDQL("SELECT `users`.* FROM `users` WHERE `users`.`email` = '$this->email' AND `users`.`password`= '$this->password'");
+    }
+
+    public function updateCode()
+    {
+        $query = "UPDATE  `users` SET `users`.`code`= $this->code WHERE `users`.`email` = '$this->email' ";
+        return $this->runDML($query);
 
     }
 }

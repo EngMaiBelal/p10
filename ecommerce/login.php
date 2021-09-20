@@ -1,6 +1,6 @@
 <?php 
 include_once "layouts/header.php";
-include_once "layouts/nav.php" 
+include_once "layouts/nav.php";
 ?>
     <!-- header end -->
     <!-- Breadcrumb Area Start -->
@@ -30,16 +30,47 @@ include_once "layouts/nav.php"
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="#" method="post">
-                                            <input type="text" name="user-name" placeholder="Username">
-                                            <input type="password" name="user-password" placeholder="Password">
+                                        <form action="app/php/login.php" method="post">
+                                            <input type="email" name="email" placeholder="Email">
+                                            <?php 
+                                                    if(isset($_SESSION['validation']['email_validation'])){
+                                                        foreach ($_SESSION['validation']['email_validation'] as $key => $value) {
+                                                                echo "<div class='alert alert-danger'>$value</div>";
+                                                        }
+                                                    }
+                                                    if(isset( $_SESSION['validation']['faild-email'])){
+                                                        echo "<div class='alert alert-danger'>{$_SESSION['validation']['faild-email']}</div>";
+                                                    }
+
+
+                                                ?>
+                                            <input type="password" name="password" placeholder="Password">
+                                            <?php 
+                                                    if(isset($_SESSION['validation']['password_validation'])){
+                                                        if(isset($_SESSION['validation']['password_validation']['password-required'])){
+                                                            echo "<div class='alert alert-danger'>{$_SESSION['validation']['password_validation']['password-required']}</div>";
+                                                        }
+                                                        if(isset($_SESSION['validation']['password_validation']['password-invalid'])){
+                                                            echo "<div class='alert alert-danger'>{$_SESSION['validation']['password_validation']['password-invalid']}</div>";
+                                                        }
+                                                    }
+
+                                                    if(isset( $_SESSION['validation']['Failed-Attempt'])){
+                                                        echo "<div class='alert alert-danger'>{$_SESSION['validation']['Failed-Attempt']}</div>";
+                                                    }
+                                                    
+
+                                                    
+
+                                                    
+                                                ?>
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
                                                     <input type="checkbox">
                                                     <label>Remember me</label>
-                                                    <a href="#">Forgot Password?</a>
+                                                    <a href="check-email.php">Forgot Password?</a>
                                                 </div>
-                                                <button type="submit"><span>Login</span></button>
+                                                <button type="submit" name="login"><span>Login</span></button>
                                             </div>
                                         </form>
                                     </div>

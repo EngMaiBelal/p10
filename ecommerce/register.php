@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once "layouts/header.php";
 include_once "layouts/nav.php";
 // print_r($_SESSION);die;
@@ -29,6 +28,14 @@ include_once "layouts/nav.php";
                                 <div id="lg2" class="tab-pane active">
                                     <div class="login-form-container">
                                         <div class="login-register-form">
+                                            <?php 
+                                                if(isset( $_SESSION['validation']['something-wrong'])){
+                                                    echo "<div class='alert alert-danger'>{$_SESSION['validation']['something-wrong']}</div>";
+                                                }
+                                                if(isset( $_SESSION['validation']['faild-email'])){
+                                                    echo "<div class='alert alert-danger'>{$_SESSION['validation']['faild-email']}</div>";
+                                                }
+                                            ?>
                                             <form action="app/php/register.php" method="post">
                                                 <input type="text" name="first_name" placeholder="First Name">
                                                 <input type="text" name="last_name" placeholder="Last Name">
