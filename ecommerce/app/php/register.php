@@ -52,7 +52,7 @@ if(isset($_POST['register'])){
         if($emailResult){
             // goto check code 
             $_SESSION['email'] = $_POST['email'];
-            header('location:../../check-code.php');
+            header('location:../../check-code.php?page=register');
         }else{
             $_SESSION['validation']['faild-email'] = 'Please Try Again';
             header('location:../../register.php');

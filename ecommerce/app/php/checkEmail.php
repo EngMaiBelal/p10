@@ -40,7 +40,7 @@ if(isset($_POST['check-email'])){
         if($emailResult){
             // goto check code 
             $_SESSION['email'] = $_POST['email'];
-            header('location:../../check-code.php');
+            header('location:../../check-code.php?page=forget');
         }else{
             $_SESSION['validation']['faild-email'] = 'Please Try Again';
             header('location:../../check-email.php');

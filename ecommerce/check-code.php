@@ -1,6 +1,7 @@
 <?php 
 include_once "layouts/header.php";
-include_once "layouts/nav.php" 
+// include_once "layouts/nav.php" ;
+
 ?>
     <!-- header end -->
     <!-- Breadcrumb Area Start -->
@@ -31,7 +32,7 @@ include_once "layouts/nav.php"
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="app/php/checkCode.php" method="post">
+                                        <form action="app/php/checkCode.php?page=<?= $_GET['page'] ?>" method="post">
                                             <input type="number" name="code" placeholder="Code">
                                             <?php 
                                             if(isset($_SESSION['validation']['wrong-code'])){

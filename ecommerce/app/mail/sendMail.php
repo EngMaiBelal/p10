@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require '../../vendor/autoload.php';
+require __DIR__.'\../../vendor\autoload.php';
 
 class sendMail {
     public function sendEmail($email,$subject,$body)

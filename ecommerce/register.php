@@ -1,7 +1,7 @@
 <?php
 include_once "layouts/header.php";
+include_once "app/middlewares/guest.php";
 include_once "layouts/nav.php";
-// print_r($_SESSION);die;
 ?>
         <div class="breadcrumb-area bg-image-3 ptb-150">
             <div class="container">

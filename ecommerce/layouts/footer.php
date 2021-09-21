@@ -116,4 +116,5 @@
 </html>
 <?php 
 unset($_SESSION['validation']);
+ob_end_flush();
 ?>

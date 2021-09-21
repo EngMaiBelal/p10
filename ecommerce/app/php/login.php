@@ -30,9 +30,9 @@ if (isset($_POST['login'])) {
     $userobj = new user;
     $userobj->setEmail($_POST['email']);
     $userobj->setPassword($_POST['password']);
-    $userDb = $userobj->login();
-    if($userobj){
-        $user = $userDb->fetch_object();
+    $userDB = $userobj->login();
+    if($userDB){
+        $user = $userDB->fetch_object();
         if($user->email_verified_at){
             $_SESSION['user'] = $user;
             header('location:../../index.php');
@@ -44,7 +44,7 @@ if (isset($_POST['login'])) {
             if($emailResult){
                 // goto check code 
                 $_SESSION['email'] = $_POST['email'];
-                header('location:../../check-code.php');
+                header('location:../../check-code.php?page=login');
             }else{
                 $_SESSION['validation']['faild-email'] = 'Please Try Again';
                 header('location:../../login.php');

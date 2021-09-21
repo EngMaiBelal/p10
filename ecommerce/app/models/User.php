@@ -1,6 +1,6 @@
 <?php
-include_once "../database/databaseConnection.php";
-include_once "../database/operation.php";
+include_once __DIR__."\../database\databaseConnection.php";
+include_once __DIR__."\../database\operation.php";
 class User extends databaseConnection implements operation {
     private $id;
     private $first_name;
@@ -313,7 +313,14 @@ class User extends databaseConnection implements operation {
 
     }
     public function update(){
-
+        $image = "";
+        if($this->image){
+            $image = ",`users`.`image`='$this->image'";
+        }
+        $query = "UPDATE `users` SET `users`.`last_name` = '$this->last_name',
+        `users`.`first_name` = '$this->first_name',`users`.`phone` = '$this->phone',
+        `users`.`gender` = '$this->gender' , `users`.`birthdate` = '$this->birthdate' $image WHERE `users`.`email` = '$this->email'";
+        return $this->runDML($query);
     }
     public function read(){
 
@@ -351,7 +358,26 @@ class User extends databaseConnection implements operation {
     {
         $query = "UPDATE  `users` SET `users`.`code`= $this->code WHERE `users`.`email` = '$this->email' ";
         return $this->runDML($query);
+    }
+    public function updatePassword()
+    {
+        $query = "UPDATE  `users` SET `users`.`password`= '$this->password' WHERE `users`.`email` = '$this->email' ";
+        return $this->runDML($query);
+    }
+
+    public function getUserByEmail()
+    {
+        return $this->runDQL("SELECT `users`.* FROM `users` WHERE `users`.`email` = '$this->email'");
 
     }
+
+    public function updateEmail()
+    {
+        $query = "UPDATE  `users` SET `users`.`email`= '$this->email' WHERE `users`.`id` = '$this->id'";
+        return $this->runDML($query);
+    }
+    
+
+    
 }
 

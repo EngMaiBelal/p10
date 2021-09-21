@@ -1,5 +1,6 @@
 <?php 
 include_once "layouts/header.php";
+include_once "app/middlewares/guest.php";
 include_once "layouts/nav.php";
 ?>
     <!-- header end -->
