@@ -1,3 +1,15 @@
+<?php
+include_once "app/models/Category.php";
+include_once "app/models/Subcategory.php";
+
+$cat = new Category;
+$cat->setStatus(1);
+$catResult = $cat->read();
+
+$sub = new Subcategory;
+$sub->setStatus(1);
+
+?>
 <header class="header-area gray-bg clearfix">
     <div class="header-bottom">
         <div class="container">
@@ -16,53 +28,48 @@
                                 <ul>
                                     <li class="top-hover"><a href="index.php">home</a>
                                     </li>
+                                    <li><a href="shop.php">Shop</a></li>
 
-                                    <li class="mega-menu-position top-hover"><a href="shop.php">shop</a>
+                                    <li class="mega-menu-position top-hover"><a href="shop.php">Categories</a>
                                         <ul class="mega-menu">
-                                            <li>
-                                                <ul>
-                                                    <li class="mega-menu-title">Categories 01</li>
-                                                    <li><a href="shop.php">Aconite</a></li>
-                                                    <li><a href="shop.php">Ageratum</a></li>
-                                                    <li><a href="shop.php">Allium</a></li>
-                                                    <li><a href="shop.php">Anemone</a></li>
-                                                    <li><a href="shop.php">Angelica</a></li>
-                                                    <li><a href="shop.php">Angelonia</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <ul>
-                                                    <li class="mega-menu-title">Categories 02</li>
-                                                    <li><a href="shop.php">Balsam</a></li>
-                                                    <li><a href="shop.php">Baneberry</a></li>
-                                                    <li><a href="shop.php">Bee Balm</a></li>
-                                                    <li><a href="shop.php">Begonia</a></li>
-                                                    <li><a href="shop.php">Bellflower</a></li>
-                                                    <li><a href="shop.php">Bergenia</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <ul>
-                                                    <li class="mega-menu-title">Categories 03</li>
-                                                    <li><a href="shop.php">Caladium</a></li>
-                                                    <li><a href="shop.php">Calendula</a></li>
-                                                    <li><a href="shop.php">Carnation</a></li>
-                                                    <li><a href="shop.php">Catmint</a></li>
-                                                    <li><a href="shop.php">Celosia</a></li>
-                                                    <li><a href="shop.php">Chives</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <ul>
-                                                    <li class="mega-menu-title">Categories 04</li>
-                                                    <li><a href="shop.php">Daffodil</a></li>
-                                                    <li><a href="shop.php">Dahlia</a></li>
-                                                    <li><a href="shop.php">Daisy</a></li>
-                                                    <li><a href="shop.php">Diascia</a></li>
-                                                    <li><a href="shop.php">Dusty Miller</a></li>
-                                                    <li><a href="shop.php">Dame’s Rocket</a></li>
-                                                </ul>
-                                            </li>
+                                            <?php
+                                            if ($catResult) {
+                                                $categories = $catResult->fetch_all(MYSQLI_ASSOC);
+                                                foreach ($categories as $index => $category) {
+                                            ?>
+                                                    <li>
+                                                        <ul>
+                                                            <li class="mega-menu-title"><?= $category['name_en'] ?></li>
+                                                            <?php
+                                                            $sub->setCategory_id($category['id']);
+                                                            $subResult = $sub->read();
+                                                            if ($subResult) {
+                                                                $subcategories = $subResult->fetch_all(MYSQLI_ASSOC);
+                                                                foreach ($subcategories as $index => $subcategory) {
+                                                            ?>
+                                                                    <li><a href="shop.php?subcat=<?= $subcategory['id'] ?>"><?= $subcategory['name_en'] ?></a></li>
+                                                                <?php
+                                                                }
+                                                            } else {
+                                                                ?>
+                                                                <li>No Subs</li>
+                                                            <?php
+                                                            }
+                                                            ?>
+
+
+                                                        </ul>
+                                                    </li>
+                                                <?php
+                                                }
+                                            } else {
+                                                ?>
+                                                <li>No Cats</li>
+                                            <?php
+                                            }
+                                            ?>
+
+
                                         </ul>
                                     </li>
                                     <li><a href="about-us.php">about</a></li>

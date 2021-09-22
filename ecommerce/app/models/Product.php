@@ -1,6 +1,6 @@
 <?php
-include_once "../database/databaseConnection.php";
-include_once "../database/operation.php";
+include_once __DIR__."\../database\databaseConnection.php";
+include_once __DIR__."\../database\operation.php";
 
 class Product extends databaseConnection implements operation {
 
@@ -268,6 +268,40 @@ class Product extends databaseConnection implements operation {
 
     }
     public function read(){
-        
+        $query = "SELECT `products`.* FROM `products` WHERE `products`.`status` = $this->status ORDER BY `products`.`price` ";
+        return $this->runDQL($query);
     }
+
+    public function getProductBySub(){
+        $query = "SELECT `products`.* FROM `products` WHERE `products`.`status` = $this->status AND `products`.`subcategory_id` = $this->subcategory_id
+         ORDER BY  `products`.`price` ";
+        return $this->runDQL($query);
+    }
+    public function findProduct(){
+        $query = "  SELECT `products_reviews`.* FROM `products_reviews` WHERE `products_reviews`.`id` = $this->id";
+        return $this->runDQL($query);
+    }
+
+
+    public function getProductReviews()
+    {
+       $query = "SELECT
+                    `reviews`.`value`,
+                    `reviews`.`comment`,
+                    `reviews`.`created_at`,
+                    CONCAT(
+                        `users`.`first_name`,
+                        ' ',
+                        `users`.`last_name`
+                    ) AS `full_name`
+                FROM
+                    `reviews`
+                LEFT JOIN `users` ON `reviews`.`user_id` = `users`.`id`
+                WHERE
+                    `reviews`.`product_id` = $this->id";
+        return $this->runDQL($query);
+
+    }
+    
+    
 }
