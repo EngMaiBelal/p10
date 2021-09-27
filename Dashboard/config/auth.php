@@ -1,4 +1,6 @@
 <?php
+// garud type => session
+// gaurd => $_SESSION['user'];
 
 return [
 
@@ -40,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        // 'admin'=>[
+        //     'driver'=>'session',
+        //     'provider'=>'admins'
+        // ]
     ],
 
     /*
@@ -64,7 +70,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
+        // 'admins'=>[
+        //     'driver'=>'eloquent',
+        //     'model'=>App\Models\Admin::class
+        // ]
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

@@ -29,7 +29,7 @@
                 <div class="form-row">
                     <div class="col-6">
                         <label for="exampleInputEmail1">Price</label>
-                        <input type="number" name="price" class="form-control @error('price') is-invalid @enderror"
+                        <input type="number" step="0.1"  name="price" class="form-control @error('price') is-invalid @enderror"
                             id="exampleInputEmail1" value="{{old('price')}}">
                         @error('price')
                             <div class="alert alert-danger mt-3 w-100">{{ $message }}</div>
@@ -111,8 +111,8 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" name="create" class="btn btn-primary">Create</button>
-                <button type="submit" name="create-return" class="btn btn-primary">Create & Return</button>
+                <button type="submit" name="index" class="btn btn-primary">Create</button>
+                <button type="submit" name="return" class="btn btn-primary">Create & Return</button>
             </div>
         </form>
     </div>

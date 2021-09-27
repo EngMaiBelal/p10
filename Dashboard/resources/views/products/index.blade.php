@@ -27,7 +27,7 @@
 
                 @foreach ($products as $index => $product)
                     <tr>
-                        <td>{{ $index }}</td>
+                        <td>{{ $product->id }}</td>
                         <td>{{ $product->name_ar }}</td>
                         <td>{{ $product->name_en }}</td>
                         <td>{{ $product->price }}</td>
@@ -42,8 +42,13 @@
                         <td>{{ $product->status ? 'Active' : 'Not Active' }}</td>
                         <td>{{ $product->created_at }}</td>
                         <td>
-                            <a class="btn btn-warning" href="{{ route('dashboard.products.edit') }}"> Edit </a>
-                            <a class="btn btn-danger" href="">Delete </a>
+                            <a class="btn btn-warning" href="{{ route('dashboard.products.edit', $product->id) }}"> Edit </a>
+                                {{-- {{url('edit-products/'.$product->id)}} --}}
+                            <form action="{{route('dashboard.products.destroy',$product->id)}}" class="d-inline" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger" name="delete" value="delete"> Delete </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
