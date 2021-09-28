@@ -41,6 +41,7 @@ class ProductController extends Controller
     // dependancy injection
     public function store(StoreProductRequest $request)
     {
+        
         $photoName = $this->uploadPhoto($request->photo,'products');
         // insert data
         $data = $request->except('_token','index','return','photo');
